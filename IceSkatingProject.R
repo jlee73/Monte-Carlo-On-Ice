@@ -178,7 +178,6 @@ AES_hard<-function(){
   }
   return(2*total_AES)
 }
-
 for (i in 1:n){
   pts_easy[i]<-sample(as.numeric(as.character(S4T_M$V2)),1)+sample(as.numeric(as.character(S4T_M$V3)),1)+
     sample(as.numeric(as.character(S2S_M$V2)),1)+sample(as.numeric(as.character(S2S_M$V3)),1)+
@@ -211,4 +210,70 @@ for (i in 1:n){
 par(mfrow=c(2,1))
 hist(pts_easy,xlim=range(165,215),ylim=range(0,180),main="Easy vs. Hard Before Rule Change")
 hist(pts_hard,xlim=range(165,215),ylim=range(0,180),main="")
+sum(as.numeric(pts_easy<pts_hard))
+
+##change BV/ GOE based on ISU rule change
+#deduct pts simply by subtractions 
+#which may be different if the jump is downgraded or in the 2nd half
+S4T_M["V4"]<-as.numeric(as.character(S4T_M$V2))-0.8
+S4T_M["V5"]<-as.numeric(as.character(S4T_M$V3))*5/3
+
+C3A3T_M["V4"]<-as.numeric(as.character(C3A3T_M$V2))-0.6
+C3A3T_M["V5"]<-as.numeric(as.character(C3A3T_M$V3))*5/3
+
+C3A2T_M["V4"]<-as.numeric(as.character(C3A2T_M$V2))-0.5
+C3A2T_M["V5"]<-as.numeric(as.character(C3A2T_M$V3))*5/3
+
+S3Lo_M["V4"]<-as.numeric(as.character(S3Lo_M$V2))-0.2
+S3Lo_M["V5"]<-as.numeric(as.character(S3Lo_M$V3))*5/3
+
+C3Lz2T2T_M["V4"]<-as.numeric(as.character(C3Lz2T2T_M$V2))-0.8
+C3Lz2T2T_M["V5"]<-as.numeric(as.character(C3Lz2T2T_M$V3))*5/3
+
+S3Lz_M["V4"]<-as.numeric(as.character(S3Lz_M$V2))-0.1
+S3Lz_M["V5"]<-as.numeric(as.character(S3Lz_M$V3))*5/3
+
+S4S_M["V4"]<-as.numeric(as.character(S4S_M$V2))-0.8
+S4S_M["V5"]<-as.numeric(as.character(S4S_M$V3))*5/3
+
+C4S3T_M["V4"]<-as.numeric(as.character(C4S3T_M$V2))-0.9
+C4S3T_M["V5"]<-as.numeric(as.character(C4S3T_M$V3))*5/3
+
+C3A1Lo3S_M["V4"]<-as.numeric(as.character(C3A1Lo3S_M$V2))-0.6
+C3A1Lo3S_M["V5"]<-as.numeric(as.character(C3A1Lo3S_M$V3))*5/3
+
+pts_easy_after<-rep(0,n)
+pts_hard_after<-rep(0,n)
+for (i in 1:n){
+  pts_easy_after[i]<-sample(as.numeric(as.character(S4T_M$V4)),1)+sample(as.numeric(as.character(S4T_M$V5)),1)+
+    sample(as.numeric(as.character(S2S_M$V2)),1)+sample(as.numeric(as.character(S2S_M$V3)),1)+
+    sample(as.numeric(as.character(S3F_M$V2)),1)+sample(as.numeric(as.character(S3F_M$V3)),1)+
+    sample(as.numeric(as.character(FCCoSp4_M$V2)),1)+sample(as.numeric(as.character(FCCoSp4_M$V3)),1)+
+    sample(as.numeric(as.character(StSq3_M$V2)),1)+sample(as.numeric(as.character(StSq3_M$V3)),1)+
+    sample(as.numeric(as.character(C3A3T_M$V4)),1)+sample(as.numeric(as.character(C3A3T_M$V5)),1)+
+    sample(as.numeric(as.character(C3A2T_M$V4)),1)+sample(as.numeric(as.character(C3A2T_M$V5)),1)+
+    sample(as.numeric(as.character(S3Lo_M$V4)),1)+sample(as.numeric(as.character(S4T_M$V5)),1)+
+    sample(as.numeric(as.character(C3Lz2T2T_M$V4)),1)+sample(as.numeric(as.character(C3Lz2T2T_M$V5)),1)+
+    sample(as.numeric(as.character(S3Lz_M$V4)),1)+sample(as.numeric(as.character(S3Lz_M$V5)),1)+
+    sample(as.numeric(as.character(ChSq1_M$V2)),1)+sample(as.numeric(as.character(ChSq1_M$V3)),1)+
+    sample(as.numeric(as.character(CCoSp4_M$V2)),1)+sample(as.numeric(as.character(CCoSp4_M$V3)),1)+
+    sample(as.numeric(as.character(FCSSp4_M$V2)),1)+sample(as.numeric(as.character(FCSSp4_M$V3)),1)+AES_easy()
+  
+  pts_hard_after[i]<-sample(as.numeric(as.character(S4T_M$V4)),1)+sample(as.numeric(as.character(S4T_M$V5)),1)+
+    sample(as.numeric(as.character(S4T_M$V4)),1)+sample(as.numeric(as.character(S4T_M$V5)),1)+
+    sample(as.numeric(as.character(S3F_M$V2)),1)+sample(as.numeric(as.character(S3F_M$V3)),1)+
+    sample(as.numeric(as.character(FCCoSp4_M$V2)),1)+sample(as.numeric(as.character(FCCoSp4_M$V3)),1)+
+    sample(as.numeric(as.character(StSq3_M$V2)),1)+sample(as.numeric(as.character(StSq3_M$V3)),1)+
+    sample(as.numeric(as.character(C4S3T_M$V4)),1)+sample(as.numeric(as.character(C4S3T_M$V5)),1)+
+    sample(as.numeric(as.character(S4T_M$V4)),1)+sample(as.numeric(as.character(S4T_M$V5)),1)+
+    sample(as.numeric(as.character(S3Lz_M$V4)),1)+sample(as.numeric(as.character(S3Lz_M$V5)),1)+
+    sample(as.numeric(as.character(C3A1Lo3S_M$V4)),1)+sample(as.numeric(as.character(C3A1Lo3S_M$V5)),1)+
+    sample(as.numeric(as.character(S3Lo_M$V4)),1)+sample(as.numeric(as.character(S3Lo_M$V5)),1)+
+    sample(as.numeric(as.character(ChSq1_M$V2)),1)+sample(as.numeric(as.character(ChSq1_M$V3)),1)+
+    sample(as.numeric(as.character(CCoSp4_M$V2)),1)+sample(as.numeric(as.character(CCoSp4_M$V3)),1)+
+    sample(as.numeric(as.character(FCSSp4_M$V2)),1)+sample(as.numeric(as.character(FCSSp4_M$V3)),1)+AES_hard()
+}
+par(mfrow=c(2,1))
+hist(pts_easy_after,breaks=15,xlim=range(150,230),ylim=range(0,180),main="Easy vs. Hard After Rule Change")
+hist(pts_hard_after,breaks=15,xlim=range(150,230),ylim=range(0,180),main="")
 
